@@ -1,0 +1,70 @@
+/* 
+    Document   : forms
+    Created on : 6/02/2012, 09:50:47 AM
+    Author     : sobrevilla
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.input{    
+    width: 255px;
+}
+
+.inputTotal{
+    width: 100px;
+    height: 20px;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-style: normal ;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+    border: #000;
+    border-style: solid;
+    border-width: 1px;
+    color: #F90;
+    background-color: #EEE;
+}
+
+.inputTable{
+    width: 75px;    
+    text-align: right;
+}
+
+.inputTable50{
+    width: 50px;
+    text-align: right;
+}
+
+.tbl_corte{
+    width: 900px;
+	margin: 0px auto;
+	border-collapse: collapse;
+	border: 1px solid #959595;
+}
+
+.tbl_corte .rowa {
+	background: #ffffff;
+	height: 20px;
+        border: 1px solid #959595;
+        text-align: center;
+}
+.tbl_corte .rowb {
+	background: #EEEEEE;
+	height: 20px;
+        border: 1px solid #959595;
+        text-align: center;
+}
+
+.tbl_corte .rowTitle {
+ 	background: #000;
+	height: 20px;
+        border: 1px solid #959595;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+}

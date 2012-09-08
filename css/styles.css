@@ -1,0 +1,351 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.container {
+	width: 100%;
+	float: left;
+}
+.column {
+	float: left;
+	position: relative;
+}
+.clear {
+	clear: both;
+}
+/*body {font-family:helvetica;}*/
+
+#container {}
+#control {
+    background-color: #F5F5F5;
+    border-right: 6px solid white;
+    height: 596px;
+    width: 314px;
+}#menu {height:49px; background-image:url('../images/menu_BG.jpg')}
+#menu a {
+    display: block;
+    float: left;
+    height: 49px;
+    text-decoration: none;
+}
+#locatorScreen{width:105px; background-image:url('../images/locationScreen.jpg')}
+#locatorScreen:hover {background-image:url('../images/locationScreen_hover.jpg'); cursor:pointer;}
+
+#historyScreen{width:104px; background-image:url('../images/historyScreen.jpg')}
+#historyScreen:hover {background-image:url('../images/historyScreen_hover.jpg'); cursor:pointer;}
+
+#geofenceScreen{width:105px; background-image:url('../images/geofenceScreen.jpg')}
+#geofenceScreen:hover {background-image:url('../images/geofenceScreen_hover.jpg'); cursor:pointer;}
+
+
+#content{padding:25px 17px;}
+#contentIntro {font-family:Helvetica; font-size:12px; color:#717171; text-shadow: 1px 1px 1px white; margin:0;}
+#content .locatorList { margin-top:10px; padding:0;}
+#content .locatorList .locator {
+    background-color: white;
+    background-image: url("../images/locator_BG.png");
+    background-position: 247px 8px;
+    background-repeat: no-repeat;
+    border: 1px solid #C4C4C4;
+    list-style: none outside none;
+    margin-top: -1px;
+    overflow: hidden;
+    width: 270px;
+}
+#content .locatorList .locator:hover {background-color:#e5e5e5; cursor:pointer;}
+
+#content .locatorList .locator .color {
+    border-radius: 10px 10px 10px 10px;
+    height: 14px;
+    margin-top: 11px;
+    width: 14px;
+	margin-right:31px;
+}
+
+#content .locatorList .locatorExpand {
+    background-image: url("../images/locatorExpand_BG.jpg");
+    height: 42px;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+    width: 252px;
+}
+.hidden {display:none}
+#content .locatorList .locatorExpand a {
+    display: block;
+    float: left;
+    text-decoration: none;
+}
+
+#content .locatorList  .locatorExpand .historyIcon {
+    background-image: url("../images/history_icon.png");
+    height: 20px;
+    margin-right: 43px;
+    margin-top: 9px;
+    width: 17px;
+}
+
+#content .locatorList  .locatorExpand .historyIcon:hover {    background-image: url("../images/history_icon_hover.png");}
+#content .locatorList  .locatorExpand .infoIcon {
+    background-image: url("../images/info_icon.png");
+    height: 22px;
+    margin-right: 43px;
+    margin-top: 8px;
+    width: 9px;
+}
+
+#content .locatorList  .locatorExpand .infoIcon:hover {    background-image: url("../images/info_icon_hover.png");}
+
+#content .locatorList .locatorExpand .personaliseIcon {
+    background-image: url("../images/personalise_icon.png");
+    height: 18px;
+    margin-right: 43px;
+    margin-top: 11px;
+    width: 21px;
+}
+#content .locatorList .locatorExpand .personaliseIcon:hover {    background-image: url("../images/personalise_icon_hover.png");}
+#content .locatorList .locatorExpand .stopIcon {
+    background-image: url("../images/stop_icon.png");
+    height: 17px;
+    margin-right: 39px;
+    margin-top: 11px;
+    width: 15px;
+}
+
+
+
+#content .locatorList .locatorExpand .stopIcon:hover {    background-image: url("../images/stop_icon_hover.png");}
+#content .locatorList  .locatorExpand .micIcon {
+    background-image: url("../images/mic_icon.png");
+    height: 16px;
+    margin-top: 11px;
+    width: 19px;
+}
+
+#content .locatorList  .locatorExpand .micIcon:hover {    background-image: url("../images/mic_icon_hover.png");}
+
+#content .locatorList .locatorExpand .playIcon {
+    background-image: url("../images/play_icon.png");
+    height: 19px;
+    margin-top: 11px;
+    width: 13px;
+	 margin-right: 40px;
+}
+
+#content .locatorList .locatorExpand .playIcon:hover {    background-image: url("../images/play_icon_hover.png");}
+
+#content .locatorList .locatorExpand .routeIcon {
+    background-image: url("../images/route_icon.png");
+    height: 18px;
+    margin-top: 11px;
+	 margin-right: 40px;
+    width: 17px;
+}
+#content .locatorList .locatorExpand .routeIcon:hover {background-image: url("../images/route_icon_hover.png");}
+
+
+#content .locatorList .locatorExpand .stopsIcon {
+    background-image: url("../images/stops_icon.png");
+    height: 25px;
+    margin-top: 6px;
+	 margin-right: 40px;
+    width: 18px;
+}
+
+#content .locatorList .locatorExpand .stopsIcon:hover {    background-image: url("../images/stops_icon_hover.png");  
+}
+
+#content .locatorList .locatorExpand .geofenceIcon {
+    background-image: url("../images/geofence_icon.png");
+    height: 17px;
+    margin-top: 11px;
+    width: 15px;
+}
+
+#content .locatorList .locatorExpand .geofenceIcon:hover {    background-image: url("../images/geofence_icon_hover.png");}
+
+
+#content .locatorList  .locatorName {margin:0; color:#717171; font-size:12px; font-weight:bold; line-height:41px;}
+#content .locatorList  .locatorCheckbox {
+    margin-left: 10px;
+    margin-right: 43px;
+    margin-top: 12px;
+}
+.locatorHeadings {color:#717171; font-size:12px; font-weight:bold;}
+
+#bottomMenu {
+    background-image: url("../images/menu_BG.jpg");
+    bottom: 0;
+    height: 49px;
+    line-height: 49px;
+    padding: 0 20px;
+    position: absolute;
+    width: 274px;
+}
+
+#content .locatorList .activeLocator, .activeLocator li {
+    background-color: #E5E5E5 !important;
+    color: #616161 !important;
+    text-shadow: none !important;
+    width: 276px;
+}
+
+.minimizeLink {
+    position: absolute;
+    right: -18px;
+    top: 54%;
+    z-index: 1;
+}
+
+#content .locatorList .activeLocator:hover {cursor:auto;}
+
+#bottomMenu .bottomLeft {position:absolute; left:20px;}
+
+#bottomMenu .bottomRight {position:absolute; right:20px;}
+
+#bottomMenu a:hover {color:#32ebfe;}
+
+#bottomMenu a {color:white; font-family:helvetica; font-size:12px; text-decoration:none;}
+.map{width:60%; height:100%; overflow:hidden;}
+
+#content .locatorList .infoLocator {
+    background: none repeat scroll 0 0 #626262;
+    box-shadow: 0 0 3px #000000 inset;
+    width: 277px;
+}
+
+#content #dateSelector {    background-color: white;
+    background-image: url("../images/locator_BG.png");
+    background-position: 247px 8px;
+    background-repeat: no-repeat;
+    border: 1px solid #C4C4C4;
+    list-style: none outside none;
+    margin-top: 10px;
+    overflow: hidden;
+    width: 275px;
+}
+
+#content #dateSelector:hover {background-color:#e5e5e5; cursor:pointer;}
+
+#content #dateSelector #date {padding:0 10px;}
+
+#content #dateSelector p {margin:0; color:#717171; font-size:12px; font-weight:bold; line-height:41px;}
+
+/*Locator Information Page*/
+#locatorInfoList {padding:0; margin:0;}
+#locatorInfoList li {
+    background-position: 14px 7px;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0 0 0 70px;
+    text-shadow: 1px 1px 1px #000000;
+    width: 207px;
+	text-decoration:none;
+}
+
+#locatorInfoList a{
+    color: white;
+	text-decoration:none;
+}
+#locatorInfoList li:hover {background-color:#e5e5e5; cursor:hover; color:#616161; text-shadow:none;}
+#locatorInfoList li a:hover {background-color:#e5e5e5; cursor:hover; color:#616161; text-shadow:none;}
+#locatorID  {    background-image: url("../images/locatorID_icon.png");} 
+#locatorID:hover  {    background-image: url("../images/locatorID_icon_hover.png");} 
+
+#locatorName  {    background-image: url("../images/locatorName_icon.png");}
+#locatorName:hover  {    background-image: url("../images/locatorName_icon_hover.png");}
+
+#locatorPhone {    background-image: url("../images/locatorPhone_icon.png");}
+#locatorPhone:hover {    background-image: url("../images/locatorPhone_icon_hover.png");}
+
+#locatorEmail {    background-image: url("../images/locatorEmail_icon.png");}
+#locatorEmail:hover {    background-image: url("../images/locatorEmail_icon_hover.png");}
+
+#locatorInternalBatteryStatus{    background-image: url("../images/locatorInternalBatteryStatus_icon.png");}
+#locatorInternalBatteryStatus:hover{    background-image: url("../images/locatorInternalBatteryStatus_icon_hover.png");}
+
+#locatorExternalBatteryStatus {    background-image: url("../images/locatorExternalBatteryStatus_icon.png");}
+#locatorExternalBatteryStatus:hover {    background-image: url("../images/locatorExternalBatteryStatus_icon_hover.png");}
+
+#locatorSpeed  {background-image: url("../images/locatorSpeed_icon.png");}
+#locatorSpeed:hover  { background-image: url("../images/locatorSpeed_icon_hover.png");}
+
+#locatorDistanceTravelled {    background-image: url("../images/locatorDistanceTravelled_icon.png");}
+#locatorDistanceTravelled:hover {    background-image: url("../images/locatorDistanceTravelled_icon_hover.png");}
+
+#locatorFuelConsumed{    background-image: url("../images/locatorFuelConsumed_icon.png");} 
+#locatorFuelConsumed:hover{    background-image: url("../images/locatorFuelConsumed_icon_hover.png");} 
+
+#locatorStatus  {    background-image: url("../images/locatorStatus_icon.png");}
+#locatorStatus:hover  {    background-image: url("../images/locatorStatus_icon_hover.png");}
+
+#locatorIcon {
+    background-image: url("../images/locatorIcon_Icon.png");
+    background-position: 13px 9px !important;
+}
+#locatorIcon:hover, #locatorIconEdit  {  background-image: url("../images/locatorIcon_icon_hover.png"); background-color:#e5e5e5; }
+
+#locatorUserPhoto  {    background-image: url("../images/locatorUserPhoto_icon.png");}
+#locatorUserPhoto:hover  {    background-image: url("../images/locatorUserPhoto_icon_hover.png");}
+
+#locatorLineColor {
+    padding-left: 0 !important;
+    width: 277px !important;
+}
+
+#locatorLineWidth {
+    padding-left: 16px !important;
+    width: 261px !important;
+}
+#locatorLineColor .color {
+    border-radius: 10px 10px 10px 10px;
+    height: 14px;
+    margin-left: 18px;
+    margin-right: 31px;
+    margin-top: 11px;
+    width: 14px;
+}
+
+#locatorEditSection {
+    background: none repeat scroll 0 0 #626262;
+    box-shadow: 0 0 3px #000000 inset;
+    height: auto;
+    margin-top: 0;
+    padding: 15px;
+    position: relative;
+    width: 248px;
+}
+
+.greenGeofence {border-left:5px solid #9ccd00 !important;}
+.redGeofence {border-left:5px solid red !important;}
+
+
+#drawGeofence {
+    height: 39px;
+    line-height: 19px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+#drawGeofence div {
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    border: 1px solid #C4C4C4;
+    color: #616161;
+    font-size: 12px;
+    font-weight: bold;
+    height: 17px;
+    padding: 10px 10px 10px 40px;
+    width: 84px;
+}
+#drawGeofence div:hover {background-color:#e5e5e5; cursor:pointer; }
+#circleMethod {margin-right:-1px; background-image: url("../images/circleMethod_icon.png");}
+#freeDrawMethod {background-image: url("../images/freeDrawMethod_icon.png");}
+

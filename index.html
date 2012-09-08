@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Maps JavaScript API v3 Example: Map Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link href="css/default.css" rel="stylesheet">
+    <!--
+    Include the maps javascript with sensor=true because this code is using a
+    sensor (a GPS locator) to determine the user's location.
+    See: https://developers.google.com/apis/maps/documentation/javascript/basics#SpecifyingSensor
+    -->
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="css/smoothness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
+	<link href="css/base.css" rel="stylesheet" type="text/css" />
+    <link href="css/datatable.css" rel="stylesheet" type="text/css" />	
+	<script src="js/jquery-1.8.0.min.js"></script>
+	<script src="js/jquery-ui-1.8.23.custom.min.js"></script>
+    <script src="js/jquery.dataTable.js"></script>
+    <script src="js/formsui.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script src="js/app.js"></script>
+	<script type="text/javascript" src="js/jScrollPane.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script>
+      var map;
+
+      function initialize() {
+        var mapOptions = {
+          zoom: 6,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById('map_canvas'),
+            mapOptions);
+
+        // Try HTML5 geolocation
+        if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = new google.maps.LatLng(position.coords.latitude,
+                                             position.coords.longitude);
+
+            var infowindow = new google.maps.InfoWindow({
+              map: map,
+              position: pos,
+              content: 'Location found using HTML5.'
+            });
+
+            map.setCenter(pos);
+          }, function() {
+            handleNoGeolocation(true);
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleNoGeolocation(false);
+        }
+      }
+
+      function handleNoGeolocation(errorFlag) {
+        if (errorFlag) {
+          var content = 'Error: The Geolocation service failed.';
+        } else {
+          var content = 'Error: Your browser doesn\'t support geolocation.';
+        }
+
+        var options = {
+          map: map,
+          position: new google.maps.LatLng(60, 105),
+          content: content
+        };
+
+        var infowindow = new google.maps.InfoWindow(options);
+        map.setCenter(options.position);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+	<script>
+	$(function() {
+		$( "[data-role='button']" ).button();
+		$(".item_list #devices").click(function(){
+			app.showDevices(true);
+		})/*.mouseleave(function(){ 
+			app.showDevices(false);
+			//setTimeout(function(){app.showDevices(false);},100);  
+		})*/
+	});
+	</script>
+  </head>
+	<body>
+		<div id="container">
+			<div id="header">
+				<div class="mainnav">
+					<ul>
+						<li>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="listbox">
+				<div class="item_list">
+					<a href="javascript:app.map();">
+						<div>
+							<div class="ico map"></div>
+							<div class="description">Map</div>
+						</div>
+					</a>
+				</div>
+				<div class="item_list">
+					<a id="devices">
+						<div>
+							<div class="ico devices"></div>
+							<div class="description">Devices</div>
+						</div>
+					</a>
+				</div>
+				<div class="item_list">
+					<a href="javascript:app.library();">
+						<div>
+							<div class="ico library"></div>
+							<div class="description">Library</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div id="contentmain">
+				<div class="NTa">
+					<div class="SDa">
+						<div class="UDa"></div>
+						<div class="TDa"></div>
+					</div>
+					<div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+				<div id="ctn_display"></div>
+				<div id="map_canvas" ></div>
+			</div>
+		</div>
+	</body>
+</html>

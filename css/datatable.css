@@ -1,0 +1,99 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.ui-datatable {
+	width: 100%;
+	border-spacing: 0;
+}
+.ui-datatable-wrap{
+	background-color: white;
+	position: relative;
+	padding-top: 65px;
+}
+.ui-datatable-scrolling {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 100%;
+	border-top: 1px solid #EBEBEB;
+}
+.ui-datatable .th-inner{
+	position: absolute;
+	top: 0;
+	line-height: 30px;
+	text-align: left;
+}
+.ui-datatable .headers .th-inner{
+	top: 30px;
+}
+.ui-datatable thead {
+	color: #555;
+	font-family: arial,sans-serif;
+	font-size: 11px;
+	
+}
+.ui-datatable thead tr {
+	/*height: 40px;*/
+}
+.ui-datatable thead tr th{
+	background: white;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	zoom: 1;
+	z-index: 1;
+	/*border-bottom: 1px solid #E5E5E5;*/
+	empty-cells: show;
+	overflow: hidden;
+	padding: 0 0 0 6px;
+	text-align: left;
+	white-space: nowrap;
+	color: #DD4B39;
+}
+.ui-datatable thead .header-selection-checkbox {
+text-align: center!important;
+padding-left: 0!important;
+padding-right: 0!important;
+}
+
+.ui-datatable tbody .loadingdata{
+	text-align: center;
+	height: 80px;
+}
+.ui-datatable tbody .list-tr{
+	height: 39px;
+	font-size: 13px;
+}
+.ui-datatable tbody .list-tr-selected {
+background-color: #FFC!important;
+}
+.ui-datatable tbody .list-tr-underlined .list-td, .ui-datatable tbody .list-tr-underlined .list-td-checkbox  {
+border-bottom: 1px solid #EBEBEB;
+}
+.ui-datatable tbody .list-td-checkbox {
+	text-align: center;
+	cursor: default;
+}
+.ui-datatable tbody .list-td {
+	vertical-align: top;
+}
+.ui-datatable tbody .list-content-wrapper {
+height: 39px;
+line-height: 39px;
+padding: 0 7px;
+position: relative;
+}
+
+.jfk-scrollbar::-webkit-scrollbar {
+height: 16px;
+overflow: visible;
+width: 16px;
+}
+.jfk-scrollbar::-webkit-scrollbar-thumb {
+background-color: rgba(0, 0, 0, .2);
+background-clip: padding-box;
+border: solid transparent;
+min-height: 28px;
+padding: 100px 0 0;
+box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1),inset 0 -1px 0 rgba(0, 0, 0, .07);
+border-width: 1px 1px 1px 6px;
+}
