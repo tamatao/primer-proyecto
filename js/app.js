@@ -125,7 +125,7 @@ var app = {
 		}
 		
 		var dataTable = $("<table/>", {"id":sView});
-		$("#ctn_display").append(dataTable);
+		$("#ctn_display").empty().append(dataTable);
 		
 		var deferred = $.Deferred();
 		app.request({url:sDefinitionJS, success:function(data){
