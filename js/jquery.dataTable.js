@@ -36,6 +36,10 @@
 				if(this.options.buttons && this.options.buttons.buttonNew){
 					var buttonNew = $("<button/>").html("New").button().click(this.options.buttons.buttonNew)
 				}
+				var buttonRemove = $("");
+				if(this.options.buttons && this.options.buttons.buttonRemove){
+					var buttonRemove = $("<button/>").html("Remove").button().click(this.options.buttons.buttonRemove)
+				}
 				
 				
 				var trNav = $("<tr/>", {"class":"nav"}).append(

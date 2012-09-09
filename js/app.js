@@ -137,6 +137,9 @@ var app = {
 			data.payload.buttons = {
 				buttonNew : function(){
 					app.addRegister(sView);
+				},
+				buttonRemove:function(id){
+					debugger;
 				}
 			}
 			dataTable.dataTable(data.payload);
@@ -196,7 +199,7 @@ var app = {
 							"url":definition.url,
 							"data":dataForm,
 							"sucess":function(){
-								$(this).dialog("close"); 
+								modal.dialog("close"); 
 							}
 						})
 						
