@@ -138,8 +138,10 @@ var app = {
 				buttonNew : function(){
 					app.addRegister(sView);
 				},
-				buttonRemove:function(id){
-					debugger;
+				buttonRemove:function(ids, removeRows){
+					app.request({url:data.payload.urlRemove, data:{removeids:ids}, success:function(data){
+						removeRows(ids)
+					}})
 				}
 			}
 			dataTable.dataTable(data.payload);
@@ -198,7 +200,7 @@ var app = {
 						app.request({
 							"url":definition.url,
 							"data":dataForm,
-							"sucess":function(){
+							"success":function(){
 								modal.dialog("close"); 
 							}
 						})

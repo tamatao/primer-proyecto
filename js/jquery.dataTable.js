@@ -18,7 +18,7 @@
 			},
 			
 			_createHeaders: function(){
-				
+				var self = this;
 				var thead = $("<thead/>");
 				var trHeaderes = $("<tr/>", {"class":"headers"});
 				trHeaderes.append(
@@ -38,13 +38,27 @@
 				}
 				var buttonRemove = $("");
 				if(this.options.buttons && this.options.buttons.buttonRemove){
-					var buttonRemove = $("<button/>").html("Remove").button().click(this.options.buttons.buttonRemove)
+					var buttonRemove = $("<button/>", {"class":"removeButton"}).html("Remove").button().click(function(){
+						var checked = self.tbody.find(".list-td-checkbox input:checked");
+						var arrIds = [];
+						$.each(checked, function(index, value){
+							arrIds.push($(value).data("unique"))
+						});
+						var removeRows = function(ids){
+							$.each(ids, function(index, value){
+								self._removeRow(value);
+							})
+						}
+						self.options.buttons.buttonRemove(arrIds, removeRows)
+					})
+					buttonRemove.hide();
 				}
+				this.buttonRemove = buttonRemove;
 				
 				
 				var trNav = $("<tr/>", {"class":"nav"}).append(
 					$("<th/>", {"colspan":this.options.fieldsList.length+1, "class":"header-nav"}).append(
-						$("<div/>", {"class":"th-inner"}).append(buttonNew),
+						$("<div/>", {"class":"th-inner"}).append(buttonNew, buttonRemove),
 						$("<span/>")
 					)
 				)
@@ -104,11 +118,20 @@
 			selectRow: function(unique){
 				$("#chk_"+unique).attr("checked", true)
 				$("#tr_"+unique).addClass("list-tr-selected ui-selected");
+				this.buttonRemove.show();
 			},
 			unselectRow: function(unique){
 				$("#chk_"+unique).attr("checked", false)
 				$("#tr_"+unique).removeClass("list-tr-selected");
 				$("#tr_"+unique).removeClass("ui-selected");
+				
+				if(this.tbody.find(".list-td-checkbox input:checked").length == 0){
+					this.buttonRemove.hide();
+				}
+			},
+			
+			_removeRow:function(unique){
+				$("#tr_"+unique).remove();
 			},
 			
 			_addRow: function(rowData){
