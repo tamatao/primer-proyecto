@@ -174,8 +174,9 @@ var app = {
 					return;
 				}
 				var definition = data.payload;
-				var form = app.buildForm(definition);
-				modal.append(form).dialog({
+				//var form = app.buildForm(definition);
+				app.buildForm(definition, modal);
+				modal.dialog({
 					width: 550,
 					modal: true,
 					resizable: false,
@@ -196,32 +197,48 @@ var app = {
 						
 					}, "Cancel": function() { $(this).dialog("close"); } }
 				});
-				form.find("select").combobox( "refresh" )
+				//form.find("select").combobox( "refresh" )
 			}
 		})
 	},
-	buildForm:function(definition){
+	buildForm:function(definition, parent){
 		var aForm = $("<form/>", {"class":"form-add"});
+		parent.append(aForm);
 		var fieldSet = $("<fieldset/>");
 		var validateRules = {
 			"rules":{},
 			"messages":{}
 		};
+		aForm.append(fieldSet);
 		for(var key in definition.fields){
-			var el = app.buildFormElement(definition.fields[key]);
-			fieldSet.append(el);
+			var el = app.buildFormElement(definition.fields[key], fieldSet);
 			validateRules.rules[definition.fields[key].id] = {};
 			validateRules.rules[definition.fields[key].id]["required"] = definition.fields[key].required;
 			validateRules.messages[definition.fields[key].id] = {};
 			validateRules.messages[definition.fields[key].id]["required"] = "Please provide a " + definition.fields[key].label;
 		}
-		aForm.append(fieldSet);
+		
 		aForm.validate(validateRules);
 		return aForm;
 	},
-	buildFormElement:function(def){
+	buildFormElement:function(def, parent){
+		
 		var elForm = $("<"+ def.tagname +"/>", {"id":def.id, "name":def.name, "type":def.type});
+		var element = $("<p/>").append(
+				$("<label/>", {"class":"label"}).html(def.label),
+				elForm
+			);
+		parent.append(element);
 		switch(def.tagname){
+			case "input":{
+				switch(def.picker){
+					case "color":{
+						elForm.miniColors({
+                    		letterCase: 'uppercase'
+                		});
+					}
+				}
+			}
 			case "select":
 				if(def.source){
 					if(typeof def.source == "string"){
@@ -295,10 +312,7 @@ var app = {
 				break;
 		}
 		
-		var element = $("<p/>").append(
-				$("<label/>", {"class":"label"}).html(def.label),
-				elForm
-			);
+		
 		return element;
 	},
 	request:function(userSettings)

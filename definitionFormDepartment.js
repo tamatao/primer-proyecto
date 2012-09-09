@@ -27,7 +27,8 @@
 				"id":"color",
 				"label":"Color",
 				"tagname":"input",
-				"type":"text"
+				"type":"text",
+				"picker":"color"
 			}
 		]
 	},
