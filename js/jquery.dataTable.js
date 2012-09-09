@@ -55,10 +55,23 @@
 				}
 				this.buttonRemove = buttonRemove;
 				
+				var buttonEdit = $("");
+				if(this.options.buttons && this.options.buttons.buttonNew){
+					var buttonEdit = $("<button/>").html("Edit").button().click(function(){
+						var checked = self.tbody.find(".list-td-checkbox input:checked");
+						if(checked.length == 1){
+							var index = self.tbody.find("[id='tr_"+ checked.data("unique") +"']").data("index");
+							self.options.buttons.buttonEdit(self.options.source[index])
+						}
+					});
+					buttonEdit.hide();
+				}
+				this.buttonEdit = buttonEdit;
+				
 				
 				var trNav = $("<tr/>", {"class":"nav"}).append(
 					$("<th/>", {"colspan":this.options.fieldsList.length+1, "class":"header-nav"}).append(
-						$("<div/>", {"class":"th-inner"}).append(buttonNew, buttonRemove),
+						$("<div/>", {"class":"th-inner"}).append(buttonNew, buttonRemove, buttonEdit),
 						$("<span/>")
 					)
 				)
@@ -75,8 +88,8 @@
 				this.element.append(tbody);
 				
 				if($.isArray(this.options.source) && this.options.source.length>0){
-					$.each(this.options.source, function(i, item){
-						self._addRow(item);
+					$.each(this.options.source, function(index, item){
+						self._addRow(index, item);
 					})
 					tbody.selectable({
 					   	selected: function(event, ui) {
@@ -119,6 +132,11 @@
 				$("#chk_"+unique).attr("checked", true)
 				$("#tr_"+unique).addClass("list-tr-selected ui-selected");
 				this.buttonRemove.show();
+				this.buttonEdit.show();
+				this.buttonEdit.button( "enable" )
+				if(this.tbody.find(".list-td-checkbox input:checked").length > 1){
+					this.buttonEdit.button( "disable" )
+				}
 			},
 			unselectRow: function(unique){
 				$("#chk_"+unique).attr("checked", false)
@@ -127,18 +145,23 @@
 				
 				if(this.tbody.find(".list-td-checkbox input:checked").length == 0){
 					this.buttonRemove.hide();
+					this.buttonEdit.hide();
 				}
+				if(this.tbody.find(".list-td-checkbox input:checked").length == 1){
+					this.buttonEdit.button( "enable" )
+				}
+				
 			},
 			
 			_removeRow:function(unique){
 				$("#tr_"+unique).remove();
 			},
 			
-			_addRow: function(rowData){
+			_addRow: function(index, rowData){
 				var self = this;
 				var unique = rowData[this.options.columnID];
 				
-				var myTR = $("<tr/>", {"class":"list-tr list-tr-underlined", id:"tr_"+unique, "data-unique":unique});
+				var myTR = $("<tr/>", {"class":"list-tr list-tr-underlined", id:"tr_"+unique, "data-unique":unique, "data-index":index});
 				myTR.bind("click", function(){
 					var unique = $(this).data("unique");
 					//self.selectRow(unique);
@@ -156,6 +179,12 @@
 				))
 				$.each(this.options.fieldsList, function(i, item){
 					var value = rowData[item.id];
+					if($.isPlainObject(value)){
+						var sValue = [];
+						for(var key in value)
+							sValue.push(value[key])
+						value = sValue.join(",")
+					}
 					myTR.append($("<td/>", {"class":"list-td"}).append(
 						$("<div/>", {"class":"list-content-wrapper"}).html(value)
 					));

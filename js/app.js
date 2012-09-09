@@ -142,6 +142,9 @@ var app = {
 					app.request({url:data.payload.urlRemove, data:{removeids:ids}, success:function(data){
 						removeRows(ids)
 					}})
+				},
+				buttonEdit : function(data){
+					app.addRegister(sView, data);
 				}
 			}
 			dataTable.dataTable(data.payload);
@@ -159,7 +162,7 @@ var app = {
 		
 		$("#ctn_display").fadeIn("fast");
 	},
-	addRegister:function(action){
+	addRegister:function(action, dataReg){
 		var modal = $("<div/>");
 		$("body").append(modal);
 		var definition = {};
@@ -185,12 +188,12 @@ var app = {
 				}
 				var definition = data.payload;
 				//var form = app.buildForm(definition);
-				app.buildForm(definition, modal);
+				app.buildForm(definition, modal, dataReg);
 				modal.dialog({
 					width: 550,
 					modal: true,
 					resizable: false,
-					title: "New " + action,
+					title: (dataReg ? "Edit ":"New ") + action,
 					buttons: { "Save": function() {
 						var aForm = $(this).find("form");
 						if(!aForm.valid()){
@@ -198,7 +201,7 @@ var app = {
 						}
 						var dataForm = aForm.serialize();
 						app.request({
-							"url":definition.url,
+							"url":(dataReg ? definition.urlEdit : definition.url),
 							"data":dataForm,
 							"success":function(){
 								modal.dialog("close"); 
@@ -211,7 +214,7 @@ var app = {
 			}
 		})
 	},
-	buildForm:function(definition, parent){
+	buildForm:function(definition, parent, data){
 		var aForm = $("<form/>", {"class":"form-add"});
 		parent.append(aForm);
 		var fieldSet = $("<fieldset/>");
@@ -221,7 +224,13 @@ var app = {
 		};
 		aForm.append(fieldSet);
 		for(var key in definition.fields){
-			var el = app.buildFormElement(definition.fields[key], fieldSet);
+			if(data){
+				var el = app.buildFormElement(definition.fields[key], fieldSet, data[definition.fields[key].id]);
+			}
+			else{
+				var el = app.buildFormElement(definition.fields[key], fieldSet);
+			}
+			
 			validateRules.rules[definition.fields[key].id] = {};
 			validateRules.rules[definition.fields[key].id]["required"] = definition.fields[key].required;
 			validateRules.messages[definition.fields[key].id] = {};
@@ -231,10 +240,11 @@ var app = {
 		aForm.validate(validateRules);
 		return aForm;
 	},
-	buildFormElement:function(def, parent){
+	buildFormElement:function(def, parent, value){
 		
 		var elForm = $("<"+ def.tagname +"/>", {"id":def.id, "name":def.name, "type":def.type});
-		var element = $("<p/>").append(
+		elForm.val(value)
+		var element = $("<p/>", {"style":"display:"+(def.type=="hidden"?"none":"")}).append(
 				$("<label/>", {"class":"label"}).html(def.label),
 				elForm
 			);
@@ -251,6 +261,10 @@ var app = {
 				}
 			}
 			case "select":
+				if($.isPlainObject(value)){
+					for(var key in value) break;
+					elForm.append($("<option/>", {"value":key,"text":value[key]}))
+				}
 				if(def.source){
 					if(typeof def.source == "string"){
 						
