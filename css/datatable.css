@@ -8,7 +8,7 @@
 .ui-datatable-wrap{
 	background-color: white;
 	position: relative;
-	padding-top: 65px;
+	padding-top: 70px;
 }
 .ui-datatable-scrolling {
 	overflow-x: hidden;
@@ -23,7 +23,7 @@
 	text-align: left;
 }
 .ui-datatable .headers .th-inner{
-	top: 30px;
+	top: 40px;
 }
 .ui-datatable thead {
 	color: #555;
@@ -54,7 +54,16 @@ text-align: center!important;
 padding-left: 0!important;
 padding-right: 0!important;
 }
+.ui-datatable thead .header-nav {
+padding: 0;
 
+}
+.ui-datatable thead .header-nav .th-inner {
+width: 100%;
+border-bottom: 1px solid #EBEBEB;
+padding-left: 8px;
+line-height: 40px;
+}
 .ui-datatable tbody .loadingdata{
 	text-align: center;
 	height: 80px;
@@ -63,8 +72,11 @@ padding-right: 0!important;
 	height: 39px;
 	font-size: 13px;
 }
-.ui-datatable tbody .list-tr-selected {
+.ui-datatable tbody .list-tr-selected, .ui-datatable tbody .ui-selected {
 background-color: #FFC!important;
+}
+.ui-datatable tbody .ui-selecting { 
+background: #FFFFFF;
 }
 .ui-datatable tbody .list-tr-underlined .list-td, .ui-datatable tbody .list-tr-underlined .list-td-checkbox  {
 border-bottom: 1px solid #EBEBEB;

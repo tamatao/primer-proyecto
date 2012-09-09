@@ -32,9 +32,15 @@
 					));
 				})
 				
+				var buttonNew = $("");
+				if(this.options.buttons && this.options.buttons.buttonNew){
+					var buttonNew = $("<button/>").html("New").button().click(this.options.buttons.buttonNew)
+				}
+				
+				
 				var trNav = $("<tr/>", {"class":"nav"}).append(
-					$("<th/>", {"colspan":this.options.fieldsList.length+1}).append(
-						/*$("<div/>", {"class":"th-inner"}).append($("<button/>").html("New"))*/
+					$("<th/>", {"colspan":this.options.fieldsList.length+1, "class":"header-nav"}).append(
+						$("<div/>", {"class":"th-inner"}).append(buttonNew),
 						$("<span/>")
 					)
 				)
@@ -54,6 +60,14 @@
 					$.each(this.options.source, function(i, item){
 						self._addRow(item);
 					})
+					tbody.selectable({
+					   	selected: function(event, ui) {
+						   	self.selectRow($(ui.selected).data("unique"))
+					   	},
+					   	unselected: function(event, ui) {
+							self.unselectRow($(ui.unselected).data("unique"))
+						}
+					});
 					return;
 				}
 				
@@ -84,10 +98,13 @@
 			},
 			
 			selectRow: function(unique){
-				$("#tr_"+unique).addClass("list-tr-selected");
+				$("#chk_"+unique).attr("checked", true)
+				$("#tr_"+unique).addClass("list-tr-selected ui-selected");
 			},
 			unselectRow: function(unique){
+				$("#chk_"+unique).attr("checked", false)
 				$("#tr_"+unique).removeClass("list-tr-selected");
+				$("#tr_"+unique).removeClass("ui-selected");
 			},
 			
 			_addRow: function(rowData){

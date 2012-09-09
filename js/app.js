@@ -134,6 +134,11 @@ var app = {
 		deferred.promise();
 							
 		deferred.done(function(data){
+			data.payload.buttons = {
+				buttonNew : function(){
+					app.addRegister(sView);
+				}
+			}
 			dataTable.dataTable(data.payload);
 			
 			var deferredData = $.Deferred();
@@ -236,6 +241,7 @@ var app = {
 						elForm.miniColors({
                     		letterCase: 'uppercase'
                 		});
+						elForm.css("width","70px")
 					}
 				}
 			}
