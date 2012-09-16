@@ -259,6 +259,13 @@ var app = {
 						elForm.css("width","70px")
 					}
 				}
+				switch(def.type){
+					case "file":
+						var options = {};
+						options = $.extend({element:elForm[0]}, def.properties);
+						var uploader = new qq.FileUploader(options);
+						break;
+				}
 			}
 			case "select":
 				if($.isPlainObject(value)){

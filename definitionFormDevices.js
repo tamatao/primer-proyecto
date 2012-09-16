@@ -50,6 +50,17 @@
 				"label":"Department",
 				"tagname":"select",
 				"source":"fillComboboxDeparment.js?idCompany=[company]"
+			},
+			{
+				"name":"photo",
+				"id":"photo",
+				"label":"Photo",
+				"tagname":"input",
+				"type":"file",
+				"properties":{
+					"action":"url que servira para cargar el archivo",
+					"multiple":false
+				}
 			}
 		]
 	},
