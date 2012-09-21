@@ -262,6 +262,7 @@ var app = {
 				switch(def.type){
 					case "file":
 						var options = {};
+						elForm.replaceWith($("<div/>", {"id":def.id}));
 						options = $.extend({element:elForm[0]}, def.properties);
 						var uploader = new qq.FileUploader(options);
 						break;
