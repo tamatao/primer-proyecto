@@ -357,7 +357,7 @@ var app = {
 			dataType:"json",
       		crossDomain : false,
       		timeout: 120000,
-			type : 'GET',
+			type : 'POST',
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
                 if(textStatus == 'timeout')
                 {
