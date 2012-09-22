@@ -262,8 +262,9 @@ var app = {
 				switch(def.type){
 					case "file":
 						var options = {};
-						elForm.replaceWith($("<div/>", {"id":def.id}));
-						options = $.extend({element:elForm[0]}, def.properties);
+						var myDiv = $("<div/>");
+						elForm.replaceWith(myDiv);
+						options = $.extend({element:myDiv[0], inputName:def.id}, def.properties);
 						var uploader = new qq.FileUploader(options);
 						break;
 				}
@@ -356,7 +357,7 @@ var app = {
 			dataType:"json",
       		crossDomain : false,
       		timeout: 120000,
-			type : 'POST',
+			type : 'GET',
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
                 if(textStatus == 'timeout')
                 {
