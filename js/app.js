@@ -119,9 +119,14 @@ var app = {
 		$("#map_canvas").fadeOut("fast");
 		
 		switch(sView){
+			/*
 			case "company": sDefinitionJS = "definitionViewCompany.js"; break;
 			case "department": sDefinitionJS = "definitionViewDepartment.js"; break;
-			case "devices": sDefinitionJS = "definitionViewDevices.js"; break;
+			case "devices": sDefinitionJS = "definitionViewDevices.js"; break;*/
+			case "company": sDefinitionJS = "servlet/empresa?controller=Empresa&action=getDefinitionView"; break;
+			case "department": sDefinitionJS = "servlet/departamento?controller=Departamento&action=getDefinitionView"; break;
+			case "devices": sDefinitionJS = "servlet/dispositivo?controller=Dispositivo&action=getDefinitionView"; break;
+			case "users": sDefinitionJS = "servlet/dispositivo?controller=Dispositivo&action=getDefinitionView"; break;
 		}
 		
 		var dataTable = $("<table/>", {"id":sView});
@@ -169,14 +174,15 @@ var app = {
 		
 		var sDefinitionJS = "";
 		switch(action){
-			/*
 			case "company": sDefinitionJS = "servlet/empresa?controller=Empresa&action=getDefinitionForm"; break;
 			case "department": sDefinitionJS = "servlet/departamento?controller=Departamento&action=getDefinitionForm"; break;
 			case "devices": sDefinitionJS = "servlet/dispositivo?controller=Dispositivo&action=getDefinitionForm"; break;
-			*/
+			case "users": sDefinitionJS = "servlet/dispositivo?controller=Dispositivo&action=getDefinitionForm"; break;
+			/*
 			case "company": sDefinitionJS = "definitionFormCompany.js"; break;
 			case "department": sDefinitionJS = "definitionFormDepartment.js"; break;
 			case "devices": sDefinitionJS = "definitionFormDevices.js"; break;
+			*/
 		}
 		
 		app.request({
@@ -190,9 +196,9 @@ var app = {
 				//var form = app.buildForm(definition);
 				app.buildForm(definition, modal, dataReg);
 				modal.dialog({
-					width: 550,
+					width: 820,
 					modal: true,
-					resizable: false,
+					resizable: true,
 					title: (dataReg ? "Edit ":"New ") + action,
 					buttons: { "Save": function() {
 						var aForm = $(this).find("form");
@@ -244,7 +250,7 @@ var app = {
 		
 		var elForm = $("<"+ def.tagname +"/>", {"id":def.id, "name":def.name, "type":def.type});
 		elForm.val(value)
-		var element = $("<p/>", {"style":"display:"+(def.type=="hidden"?"none":"")}).append(
+		var element = $("<p/>", {"style":"width:50%;float:left;"+(def.type=="hidden"?"display:none":"")}).append(
 				$("<label/>", {"class":"label"}).html(def.label),
 				elForm
 			);
@@ -264,7 +270,11 @@ var app = {
 						var options = {};
 						var myDiv = $("<div/>");
 						elForm.replaceWith(myDiv);
-						options = $.extend({element:myDiv[0], inputName:def.id}, def.properties);
+						var inFiName = $("<input/>",{"type":"text","id":def.id, "style":"display:none"});
+						myDiv.parent().append(inFiName);
+						options = $.extend({element:myDiv[0], inputName:def.id, onComplete:function(id, sFile, res){
+							inFiName.val(res.fileName);
+						}}, def.properties);
 						var uploader = new qq.FileUploader(options);
 						break;
 				}
