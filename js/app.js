@@ -266,6 +266,10 @@ var app = {
 					}
 				}
 				switch(def.type){
+					case "date":
+						elForm[0].type = "text"
+						elForm.datepicker();
+						break;
 					case "file":
 						var options = {};
 						var myDiv = $("<div/>");
