@@ -14,6 +14,7 @@
 				this.element.addClass("ui-datatable");
 				this._createHeaders();
 				this._createBody();
+				this.itemSelected = 0;
 				
 			},
 			
@@ -93,11 +94,25 @@
 					})
 					tbody.selectable({
 					   	selected: function(event, ui) {
-						   	self.selectRow($(ui.selected).data("unique"))
+							var unique = $(ui.selected).data("unique")
+						   	self.selectRow(unique)
+							if(self.itemSelected == 1){
+								self.unselectRow(unique);
+								self.itemSelected --;
+								var index = self.tbody.find("[id='tr_"+ unique +"']").data("index");
+								self.options.buttons.buttonEdit(self.options.source[index])
+							}
 					   	},
 					   	unselected: function(event, ui) {
 							self.unselectRow($(ui.unselected).data("unique"))
-						}
+						},
+						selecting: function(event, ui) {
+							self.itemSelected ++;
+						},
+						unselecting: function(event, ui) {
+							self.itemSelected --;
+						},
+						filter: "tr"
 					});
 					return;
 				}
@@ -170,8 +185,10 @@
 					$("<div/>", {"class":"list-content-wrapper"}).append(
 						$("<input/>", {"type":"checkbox", id:"chk_"+unique, "data-unique":unique}).click(function(){
 							var unique = $(this).data("unique");
-							if(this.checked)
+							if(this.checked){
 								self.selectRow(unique);
+								self.itemSelected ++;
+							}
 							else
 								self.unselectRow(unique);
 						})

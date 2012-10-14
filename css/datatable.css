@@ -80,7 +80,7 @@ line-height: 40px;
 background-color: #FFC!important;
 }
 .ui-datatable tbody .ui-selecting { 
-background: #FFFFFF;
+background-color: #FFC!important;
 }
 .ui-datatable tbody .list-tr-underlined .list-td, .ui-datatable tbody .list-tr-underlined .list-td-checkbox  {
 border-bottom: 1px solid #EBEBEB;
