@@ -189,8 +189,10 @@
 								self.selectRow(unique);
 								self.itemSelected ++;
 							}
-							else
+							else{
 								self.unselectRow(unique);
+								self.itemSelected --;
+							}
 						})
 					)
 				))
