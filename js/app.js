@@ -214,7 +214,13 @@ var app = {
 							}
 						})
 						
-					}, "Cancel": function() { $(this).dialog("close"); } }
+					}, 
+					"Cancel": function() { 
+						$(this).dialog("close"); 
+					}},
+					"close": function( event, ui ){
+						$(this).remove();
+					}
 				});
 				//form.find("select").combobox( "refresh" )
 			}
