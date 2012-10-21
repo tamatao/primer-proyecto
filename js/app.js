@@ -158,8 +158,8 @@ var app = {
 						removeRows(ids)
 					}})
 				},
-				buttonEdit : function(data){
-					app.addRegister(sView, data, function(){
+				buttonEdit : function(dataEdit){
+					app.addRegister(sView, dataEdit, function(){
 						var deferredData = $.Deferred();
 						app.request({url:data.payload.url, success:function(dataE){
 							deferredData.resolve(dataE);
