@@ -141,7 +141,17 @@ var app = {
 		deferred.done(function(data){
 			data.payload.buttons = {
 				buttonNew : function(){
-					app.addRegister(sView);
+					app.addRegister(sView, null, function(){
+						var deferredData = $.Deferred();
+						app.request({url:data.payload.url, success:function(data){
+							deferredData.resolve(data);
+						}});
+						deferredData.promise();
+						deferredData.done(function(data){
+							dataTable.dataTable( "option", "source", data.payload[sView] );
+							dataTable.dataTable( "refresh" );
+						})
+					});
 				},
 				buttonRemove:function(ids, removeRows){
 					app.request({url:data.payload.urlRemove, data:{removeids:ids}, success:function(data){
@@ -149,7 +159,17 @@ var app = {
 					}})
 				},
 				buttonEdit : function(data){
-					app.addRegister(sView, data);
+					app.addRegister(sView, data, function(){
+						var deferredData = $.Deferred();
+						app.request({url:data.payload.url, success:function(data){
+							deferredData.resolve(data);
+						}});
+						deferredData.promise();
+						deferredData.done(function(data){
+							dataTable.dataTable( "option", "source", data.payload[sView] );
+							dataTable.dataTable( "refresh" );
+						})
+					});
 				}
 			}
 			dataTable.dataTable(data.payload);
@@ -167,7 +187,7 @@ var app = {
 		
 		$("#ctn_display").fadeIn("fast");
 	},
-	addRegister:function(action, dataReg){
+	addRegister:function(action, dataReg, callback){
 		var modal = $("<div/>");
 		$("body").append(modal);
 		var definition = {};
@@ -210,7 +230,10 @@ var app = {
 							"url":(dataReg ? definition.urlEdit : definition.url),
 							"data":dataForm,
 							"success":function(){
-								modal.dialog("close"); 
+								modal.dialog("close");
+								if($.isFunction(callback)){
+									callback();
+								}
 							}
 						})
 						
