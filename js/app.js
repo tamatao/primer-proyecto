@@ -248,7 +248,7 @@ var app = {
 			validateRules.messages[definition.fields[key].id] = {};
 			validateRules.messages[definition.fields[key].id]["required"] = "Please provide a " + definition.fields[key].label;
 		}
-		
+		validateRules.ignore = "";
 		aForm.validate(validateRules);
 		return aForm;
 	},

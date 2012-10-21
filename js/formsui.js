@@ -17,7 +17,7 @@
 					value = selected.val() ? selected.text() : "",
 					wrapper = this.wrapper = $( "<span>" )
 						.addClass( "ui-combobox" )
-						.insertAfter( select );
+						.insertBefore( select );
 				input = $( "<input>" )
 					.appendTo( wrapper )
 					.val( value )
