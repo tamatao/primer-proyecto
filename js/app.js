@@ -274,13 +274,14 @@ var app = {
 				switch(def.type){
 					case "date":
 						elForm[0].type = "text"
+						elForm.val(value)
 						elForm.datepicker();
 						break;
 					case "file":
 						var options = {};
 						var myDiv = $("<div/>");
 						elForm.replaceWith(myDiv);
-						var inFiName = $("<input/>",{"type":"text","id":def.id, "style":"display:none"});
+						var inFiName = $("<input/>",{"type":"text","id":def.id,"name":def.id, "style":"display:none"});
 						myDiv.parent().append(inFiName);
 						options = $.extend({element:myDiv[0], inputName:def.id, onComplete:function(id, sFile, res){
 							inFiName.val(res.fileName);
@@ -291,8 +292,8 @@ var app = {
 			}
 			case "select":
 				if($.isPlainObject(value)){
-					for(var key in value) break;
-					elForm.append($("<option/>", {"value":key,"text":value[key]}))
+					for(var keySelected in value) break;
+					elForm.append($("<option/>", {"value":keySelected,"text":value[keySelected]}))
 				}
 				if(def.source){
 					if(typeof def.source == "string"){
@@ -336,9 +337,13 @@ var app = {
 							
 							deferred.done(function(data){
 								if(data){
-									
+									element.empty();
+									element.append($("<option/>", {text:"", value:""}))
 									$.each(data.payload.data, function(index, value){
-										element.append($("<option/>", {text:value.label, value:value.value}))
+										if(keySelected == value.value)
+											element.append($("<option/>", {text:value.label, value:value.value, selected:true}))
+										else
+											element.append($("<option/>", {text:value.label, value:value.value}))
 									});
 								}
 								
