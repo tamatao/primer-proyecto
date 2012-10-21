@@ -161,12 +161,12 @@ var app = {
 				buttonEdit : function(data){
 					app.addRegister(sView, data, function(){
 						var deferredData = $.Deferred();
-						app.request({url:data.payload.url, success:function(data){
-							deferredData.resolve(data);
+						app.request({url:data.payload.url, success:function(dataE){
+							deferredData.resolve(dataE);
 						}});
 						deferredData.promise();
-						deferredData.done(function(data){
-							dataTable.dataTable( "option", "source", data.payload[sView] );
+						deferredData.done(function(dataE){
+							dataTable.dataTable( "option", "source", dataE.payload[sView] );
 							dataTable.dataTable( "refresh" );
 						})
 					});
