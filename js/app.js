@@ -277,14 +277,77 @@ var app = {
 	},
 	buildFormElement:function(def, parent, value){
 		
-		var elForm = $("<"+ def.tagname +"/>", {"id":def.id, "name":def.name, "type":def.type});
-		elForm.val(value)
+		switch(def.tagname){
+			case "button":
+			case "input":
+			case "select":{
+				var elForm = $("<"+ def.tagname +"/>", {"id":def.id, "name":def.name, "type":def.type});
+				elForm.val(value);
+				break;
+			}
+			case "widget_twosidedmultiselect":{
+				var elForm = $("<select/>",{"id":def.id, "name":def.name, "type":"multiple"});
+				break;
+			}
+		}
 		var element = $("<p/>", {"style":"width:50%;float:left;"+(def.type=="hidden"?"display:none":"")}).append(
 				$("<label/>", {"class":"label"}).html(def.label),
 				elForm
 			);
 		parent.append(element);
 		switch(def.tagname){
+			case "widget_twosidedmultiselect":{
+				if($.isPlainObject(value)){
+					for(var keySelected in value)
+						elForm.append($("<option/>", {"value":keySelected,"text":value[keySelected], "selected":'selected'}))
+				}
+				if(typeof def.source == "string"){
+					//array donde guardaremos los componentes que hacen que este componente actualice los datos
+					var elements = [];
+					def.source.replace(/\[([A-Za-z_0-9]*)\]/g, function(t,a,b,c,d){
+						elements.push(a);
+					});
+					def.source = $.proxy(function( request, response ) {
+						var url = this.url;
+						url = url.replace(/\[([A-Za-z_0-9]*)\]/g, function(t,a,b,c,d){
+							return $("#"+a).val();
+						})
+						
+						var dfd = $.Deferred();
+						if(element.data("url") != url){
+							app.request({url:url, success:function(data){
+								dfd.resolve(data);
+								element.data("url", url);
+							}});
+						}else{
+							dfd.resolve(null);
+						}
+							
+						dfd.promise().then(function(data){
+							if(data){
+								element.empty();
+								$.each(data.payload.data, function(index, value){
+									element.append($("<option/>", {text:value.label, value:value.value}))
+								});
+							}
+						})
+					}, {"url": def.source, "element": elForm});
+					def.source();
+					$.each(elements, function(i,v){
+						$("#"+v).bind("change", def.source);
+					})
+				}
+				elForm.multiSelect()
+				break;
+			}
+			case "button":{
+				if($.isArray(def.events.click)){
+					$.each(def.events.click, function(i, v){
+						elForm.bind("click", new Function(v))
+					})
+				}
+				break;
+			}
 			case "input":{
 				switch(def.picker){
 					case "color":{
@@ -320,8 +383,6 @@ var app = {
 				}
 				if(def.source){
 					if(typeof def.source == "string"){
-						
-						
 						def.source = $.proxy(function( request, response ) {
 							var element = this.element;
 							var url = this.url;
