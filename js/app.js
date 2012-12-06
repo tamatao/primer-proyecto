@@ -296,50 +296,6 @@ var app = {
 			);
 		parent.append(element);
 		switch(def.tagname){
-			case "widget_twosidedmultiselect":{
-				if($.isPlainObject(value)){
-					for(var keySelected in value)
-						elForm.append($("<option/>", {"value":keySelected,"text":value[keySelected], "selected":'selected'}))
-				}
-				if(typeof def.source == "string"){
-					//array donde guardaremos los componentes que hacen que este componente actualice los datos
-					var elements = [];
-					def.source.replace(/\[([A-Za-z_0-9]*)\]/g, function(t,a,b,c,d){
-						elements.push(a);
-					});
-					def.source = $.proxy(function( request, response ) {
-						var url = this.url;
-						url = url.replace(/\[([A-Za-z_0-9]*)\]/g, function(t,a,b,c,d){
-							return $("#"+a).val();
-						})
-						
-						var dfd = $.Deferred();
-						if(element.data("url") != url){
-							app.request({url:url, success:function(data){
-								dfd.resolve(data);
-								element.data("url", url);
-							}});
-						}else{
-							dfd.resolve(null);
-						}
-							
-						dfd.promise().then(function(data){
-							if(data){
-								element.empty();
-								$.each(data.payload.data, function(index, value){
-									element.append($("<option/>", {text:value.label, value:value.value}))
-								});
-							}
-						})
-					}, {"url": def.source, "element": elForm});
-					def.source();
-					$.each(elements, function(i,v){
-						$("#"+v).bind("change", def.source);
-					})
-				}
-				elForm.multiSelect()
-				break;
-			}
 			case "button":{
 				if($.isArray(def.events.click)){
 					$.each(def.events.click, function(i, v){
@@ -403,10 +359,7 @@ var app = {
 									}
 								}
 							}
-							
-							
 							var deferred = $.Deferred();
-							
 							if(element.data("url") != url){
 								app.request({url:url, success:function(data){
 									deferred.resolve(data);
@@ -416,9 +369,21 @@ var app = {
 								deferred.resolve(null);
 							}
 							
-							
 							deferred.promise();
-							
+							deferred.done(function(data){
+								if(data){
+									element.empty();
+									element.append($("<option/>", {text:"", value:""}))
+									$.each(data.payload.data, function(index, value){
+										if(keySelected == value.value)
+											element.append($("<option/>", {text:value.label, value:value.value, selected:true}))
+										else
+											element.append($("<option/>", {text:value.label, value:value.value}))
+									});
+									element.trigger("liszt:updated");
+								}
+							)
+							/*
 							deferred.done(function(data){
 								if(data){
 									element.empty();
@@ -447,10 +412,12 @@ var app = {
 										};
 								}) );
 							});
-							
+							*/
 						}, {"url": def.source, "element": elForm})
 					}
-					elForm.combobox({source:def.source});
+					//elForm.combobox({source:def.source});
+					elForm.chosen()
+					def.source();
 				}
 				break;
 		}
