@@ -350,7 +350,13 @@ var app = {
 									var match = arrMatch[key];
 									match = match.replace('[', '');
 									match = match.replace(']', '');
-									var value = $("#"+match).val();
+									var aSelect = $("#"+match);
+									if(aSelect[0]&&aSelect[0].tagName == "SELECT"){
+										aSelect.chosen().change(function(){
+											alert("Actualizando...")
+										})
+									}
+									var value = aSelect.val();
 									if(value)
 									{
 										do {
@@ -384,36 +390,6 @@ var app = {
 									}
 								}
 							)
-							/*
-							deferred.done(function(data){
-								if(data){
-									element.empty();
-									element.append($("<option/>", {text:"", value:""}))
-									$.each(data.payload.data, function(index, value){
-										if(keySelected == value.value)
-											element.append($("<option/>", {text:value.label, value:value.value, selected:true}))
-										else
-											element.append($("<option/>", {text:value.label, value:value.value}))
-									});
-								}
-								
-								var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-								response( element.children( "option" ).map(function() {
-									var text = $( this ).text();
-									if ( this.value && ( !request.term || matcher.test(text) ) )
-										return {
-											label: text.replace(
-												new RegExp(
-													"(?![^&;]+;)(?!<[^<>]*)(" +
-													$.ui.autocomplete.escapeRegex(request.term) +
-													")(?![^<>]*>)(?![^&;]+;)", "gi"
-												), "<strong>$1</strong>" ),
-											value: text,
-											option: this
-										};
-								}) );
-							});
-							*/
 						}, {"url": def.source, "element": elForm})
 					}
 					//elForm.combobox({source:def.source});
