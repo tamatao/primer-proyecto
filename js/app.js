@@ -371,16 +371,17 @@ var app = {
 							
 							deferred.promise();
 							deferred.done(function(data){
-								if(data){
-									element.empty();
-									element.append($("<option/>", {text:"", value:""}))
-									$.each(data.payload.data, function(index, value){
-										if(keySelected == value.value)
-											element.append($("<option/>", {text:value.label, value:value.value, selected:true}))
-										else
-											element.append($("<option/>", {text:value.label, value:value.value}))
-									});
-									element.trigger("liszt:updated");
+									if(data){
+										element.empty();
+										element.append($("<option/>", {text:"", value:""}))
+										$.each(data.payload.data, function(index, value){
+											if(keySelected == value.value)
+												element.append($("<option/>", {text:value.label, value:value.value, selected:true}))
+											else
+												element.append($("<option/>", {text:value.label, value:value.value}))
+										});
+										element.trigger("liszt:updated");
+									}
 								}
 							)
 							/*
